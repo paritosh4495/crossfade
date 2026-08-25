@@ -6,13 +6,13 @@ A crossfade is the blend where one track hands off to the next. That is the idea
 
 ## Status
 
-Planning. Nothing is implemented yet. The route from idea to spec is charted in `.scratch/playlist-transfer/map.md`, with open questions as tickets in `.scratch/playlist-transfer/issues/`.
+Planning, and v1 runs locally. Nothing is implemented yet. The route from idea to spec is charted in `.scratch/playlist-transfer/map.md`, with open questions as tickets in `.scratch/playlist-transfer/issues/`.
 
 ## What v1 does
 
 Copies a user-owned playlist between Spotify and YouTube Music, in either direction. One-shot copy, the source playlist is never touched. Tracks that match confidently are added automatically. Ambiguous ones go to a review queue you resolve yourself.
 
-Crossfade is privately hosted for its owner and up to four other people. That is not a modesty statement, it is Spotify's rule: Extended Quota Mode requires 250,000 monthly active users and a registered company, so a solo developer is permanently capped at five hand-allowlisted users.
+Crossfade runs locally for now. When it is hosted, it serves its owner and up to four other people. That is not a modesty statement, it is Spotify's rule: Extended Quota Mode requires 250,000 monthly active users and a registered company, so a solo developer is permanently capped at five hand-allowlisted users.
 
 Transfers run as background jobs, so a 500-song playlist can be paused, closed, and picked up later.
 

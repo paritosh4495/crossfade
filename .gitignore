@@ -1,0 +1,48 @@
+# Java / Spring Boot
+target/
+build/
+*.class
+*.jar
+*.war
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Python sidecar
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+*.local
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+secrets/
+oauth.json
+browser.json
+headers_auth.json
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

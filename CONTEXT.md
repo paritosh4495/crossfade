@@ -8,6 +8,8 @@ Domain glossary and decisions for Crossfade. See `docs/agents/domain.md` for how
 - **Track Transfer** — the per-track line item inside a Transfer Job. Carries its own state; job state rolls up from the set of its Track Transfers.
 - **Provider Credential** — a stored OAuth token pair (access + refresh) for one user, one provider. Lives in Spring Boot, not the Python sidecar, because writes go through the official YouTube Data API v3 rather than `ytmusicapi`.
 - **Match Candidate** — one of up to three ranked YouTube Music matches surfaced for a Track Transfer that didn't auto-accept. Shown in the review queue so the user picks from ranked options rather than a single guess.
+- **Match score** — the numeric confidence, 0 to 1, that a Match Candidate is the same recording as the source track. Built from title similarity, artist match, duration delta, and album match, weighted 0.4/0.3/0.2/0.1.
+- **Verified match** — a Match Candidate whose ISRC equals the source track's ISRC and whose duration confirms it. Auto-accepted outright, without going through the weighted match score.
 
 ### Rejected/superseded terms
 
@@ -23,13 +25,14 @@ This is revisited only if the deferred public-demo-mode idea (unauthenticated us
 ## Track Transfer states
 
 ```
-pending → matched (auto-accepted, confidence above threshold)
-        → needs_review (confidence below threshold, up to 3 Match Candidates shown)
+pending → matched (auto-accepted: match score at or above 0.85, or a verified match)
+        → needs_review (best match score between 0.55 and 0.85, up to 3 Match Candidates shown)
             → resolved (user picks a candidate or rejects all)
 matched | resolved → written (destination write succeeded)
                    → failed (destination write exhausted retries)
 pending → skipped
     reason: unsupported   (e.g. local files, can never match)
+    reason: not_found     (no Match Candidate reached 0.55; never shown for review)
     reason: declined      (user rejected every Match Candidate in review)
 ```
 

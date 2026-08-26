@@ -6,7 +6,25 @@ A crossfade is the blend where one track hands off to the next. That is the idea
 
 ## Status
 
-Planning, and v1 runs locally. Nothing is implemented yet. The route from idea to spec is charted in `.scratch/playlist-transfer/map.md`, with open questions as tickets in `.scratch/playlist-transfer/issues/`.
+Planning, and v1 runs locally. Local dev scaffolding (backend, sidecar, Postgres, frontend skeleton) is up; the actual transfer feature isn't implemented yet. The route from idea to spec is charted in `.scratch/playlist-transfer/map.md`, with open questions as tickets in `.scratch/playlist-transfer/issues/`.
+
+## Local dev
+
+```
+docker compose up --build
+```
+
+starts Postgres, the Spring Boot backend (`:8080`), and the Python sidecar (`:8000`) together. The backend's `/api/health` pings the sidecar and reports both as up.
+
+The frontend runs separately, since it's what you're actively developing against:
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+opens on `:5173` and calls the backend's health endpoint on load. Copy `frontend/.env.example` to `frontend/.env` to point it at a non-default backend URL.
 
 ## What v1 does
 
